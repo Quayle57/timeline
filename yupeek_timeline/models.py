@@ -15,6 +15,10 @@ class Timeline(models.Model):
 
 class Element(models.Model):
 
+    title = models.CharField(
+        max_length=255
+    )
+
     content = models.CharField(
         max_length=2048,
         blank=False,
@@ -44,8 +48,9 @@ class Element(models.Model):
     timeline = models.ForeignKey(
         'Timeline',
         blank=True,
-        null=True
+        null=True,
+        on_delete=models.DO_NOTHING
     )
 
     def __str__(self):
-        return "{} - {}".format(self.content, self.timeline)
+        return "{} - {}".format(self.title, self.timeline)

@@ -18,16 +18,25 @@
                 var container_{{ timeline.title }} = document.getElementById("visualization-{{ timeline.title }}");
                 var items_{{ timeline.title }} = new vis.DataSet([
                     {% for element in timeline.content %}
-                                            {
-                        id: '{{ element.id }}',
-                        content: '{{ element.content }}',
-                        start: '{{ element.start_date | date:"Y-m-d" }}'
-                    },
+                        {
+                            id: '{{ element.id }}',
+                            content: '{{ element.title }}',
+                            start: '{{ element.start_date | date:"Y-m-d" }}',
+                            desc: '{{ element.content }}'
+                        },
                     {% endfor %}
                 ]);
                 var options = {};
                 var timeline_{{ timeline.title }} = new vis.Timeline(container_{{ timeline.title }}, items_{{ timeline.title }}, options);
+                timeline_{{ timeline.title }}.on('select', function(properties) {
+                    if (properties.items.length) {
+                        var elem = document.getElementById("displayer");
+                        elem.innerHTML = items_{{ timeline.title }}._data[properties.items].desc;
+                    }
+                });
             </script>
         {% endfor %}
+        <h3>Node Content</h3>
+        <div id="displayer"></div>
     </body>
 </html>
