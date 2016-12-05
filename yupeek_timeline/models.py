@@ -47,22 +47,5 @@ class Element(models.Model):
         null=True
     )
 
-    # PROD = 'Prod'
-    # STAGING = 'Staging'
-    #
-    # TYPE_CHOICES = (
-    #     (PROD, 'Prod'),
-    #     (STAGING, 'Staging'),
-    #
-    # )
-    #
-    # type = models.CharField(
-    #     max_length=20,
-    #     choices=TYPE_CHOICES,
-    #     default=None,
-    #     null=True,
-    #     blank=True
-    # )
-
     def __str__(self):
         return "{} - {}".format(self.content, self.timeline)

@@ -12,5 +12,5 @@ class HomePage(TemplateView):
         for timeline in timelines:
             name = timeline.title
             content = Element.objects.filter(timeline=timeline)
-            datas.append({'title': name, 'content': content})
+            datas.append({'title': name.lower(), 'content': content})
         return {'datas': datas}
