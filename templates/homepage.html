@@ -9,32 +9,25 @@
     </head>
 
     <body>
-        <h1>THE YUPEEK TIMELINE</h1>
-        <h2>Prod</h2>
-        <div id="visualization-prod"></div>
-        <h2>Staging</h2>
-        <div id="visualization-staging"></div>
+        <h1>THE YUPEEK TIMELINES</h1>
+        {% for timeline in datas %}
+            <h2>{{ timeline.title }}</h2>
+            <div id="visualization-{{ timeline.title }}"></div>
 
-        <script type="text/javascript">
-            // DOM element where the Timeline will be attached
-            var container_prod = document.getElementById('visualization-prod');
-            var container_staging = document.getElementById('visualization-staging');
-            // Create a DataSet (allows two way data-binding)
-            var items_prod = new vis.DataSet([
-                {% for element in prod %}
-                    {id: '{{ element.id }}', content: '{{ element.content }}', start: '{{ element.start_date | date:"Y-m-d" }}' },
-                 {% endfor %}
-            ]);
-            var items_staging = new vis.DataSet([
-                {% for element in staging %}
-                    {id: '{{ element.id }}', content: '{{ element.content }}', start: '{{ element.start_date | date:"Y-m-d" }}' },
-                 {% endfor %}
-            ]);
-            // Configuration for the Timeline
-            var options = {};
-            // Create a Timeline
-            var timeline_prod = new vis.Timeline(container_prod, items_prod, options);
-            var timeline_staging = new vis.Timeline(container_staging, items_staging, options);
-        </script>
+            <script type="text/javascript">
+                var container_{{ timeline.title }} = document.getElementById("visualization-{{ timeline.title }}");
+                var items_{{ timeline.title }} = new vis.DataSet([
+                    {% for element in timeline.content %}
+                                            {
+                        id: '{{ element.id }}',
+                        content: '{{ element.content }}',
+                        start: '{{ element.start_date | date:"Y-m-d" }}'
+                    },
+                    {% endfor %}
+                ]);
+                var options = {};
+                var timeline_{{ timeline.title }} = new vis.Timeline(container_{{ timeline.title }}, items_{{ timeline.title }}, options);
+            </script>
+        {% endfor %}
     </body>
 </html>

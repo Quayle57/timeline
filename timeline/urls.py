@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from YupeekTimeline.views import HomePage
+from yupeek_timeline.views import HomePage
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
