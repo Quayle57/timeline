@@ -10,22 +10,31 @@
 
     <body>
         <h1>THE YUPEEK TIMELINE</h1>
-
-        <div id="visualization"></div>
+        <h2>Prod</h2>
+        <div id="visualization-prod"></div>
+        <h2>Staging</h2>
+        <div id="visualization-staging"></div>
 
         <script type="text/javascript">
             // DOM element where the Timeline will be attached
-            var container = document.getElementById('visualization');
+            var container_prod = document.getElementById('visualization-prod');
+            var container_staging = document.getElementById('visualization-staging');
             // Create a DataSet (allows two way data-binding)
-            var items = new vis.DataSet([
-                {% for element in elements %}
+            var items_prod = new vis.DataSet([
+                {% for element in prod %}
+                    {id: '{{ element.id }}', content: '{{ element.content }}', start: '{{ element.start_date | date:"Y-m-d" }}' },
+                 {% endfor %}
+            ]);
+            var items_staging = new vis.DataSet([
+                {% for element in staging %}
                     {id: '{{ element.id }}', content: '{{ element.content }}', start: '{{ element.start_date | date:"Y-m-d" }}' },
                  {% endfor %}
             ]);
             // Configuration for the Timeline
             var options = {};
             // Create a Timeline
-            var timeline = new vis.Timeline(container, items, options);
+            var timeline_prod = new vis.Timeline(container_prod, items_prod, options);
+            var timeline_staging = new vis.Timeline(container_staging, items_staging, options);
         </script>
     </body>
 </html>

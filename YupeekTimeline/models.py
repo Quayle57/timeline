@@ -4,12 +4,6 @@ from django.utils import timezone
 
 class Element(models.Model):
 
-    title = models.CharField(
-        max_length=255,
-        blank=False,
-        default=None
-    )
-
     content = models.CharField(
         max_length=2048,
         blank=False,
@@ -35,3 +29,23 @@ class Element(models.Model):
         blank=True,
         null=True
     )
+
+    PROD = 'Prod'
+    STAGING = 'Staging'
+
+    TYPE_CHOICES = (
+        (PROD, 'Prod'),
+        (STAGING, 'Staging'),
+
+    )
+
+    type = models.CharField(
+        max_length=20,
+        choices=TYPE_CHOICES,
+        default=None,
+        null=True,
+        blank=True
+    )
+
+    def __str__(self):
+        return "{} - {}".format(self.content, self.type)

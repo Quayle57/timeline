@@ -7,5 +7,6 @@ class HomePage(TemplateView):
     template_name = 'homepage.html'
 
     def get_context_data(self, **kwargs):
-        elems = Element.objects.all()
-        return {"elements": elems}
+        prod = Element.objects.filter(type="Prod")
+        staging = Element.objects.filter(type="Staging")
+        return {"prod": prod, "staging": staging}
