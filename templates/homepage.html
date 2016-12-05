@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Yupeek Timeline</title>
+        <script src="{% static 'vis.min.js' %}"></script>
+        <link href="{% static 'vis.min.css' %}" rel="stylesheet" type="text/css"/>
+    </head>
+
+    <body>
+        <h1>THE YUPEEK TIMELINE</h1>
+
+        <div id="visualization"></div>
+
+        <script type="text/javascript">
+            // DOM element where the Timeline will be attached
+            var container = document.getElementById('visualization');
+            // Create a DataSet (allows two way data-binding)
+            var items = new vis.DataSet([
+                {% for element in elements %}
+                    {id: '{{ element.id }}', content: '{{ element.content }}', start: '{{ element.start_date | date:"Y-m-d" }}' },
+                 {% endfor %}
+            ]);
+            // Configuration for the Timeline
+            var options = {};
+            // Create a Timeline
+            var timeline = new vis.Timeline(container, items, options);
+        </script>
+    </body>
+</html>
